@@ -145,6 +145,112 @@
       body.dark .toggle-switch::before {
         transform: translateX(30px);
       }
+
+      /* Mobile Responsive Styles */
+      @media screen and (max-width: 768px) {
+        table {
+          width: 95%;
+          margin: 10px auto;
+          padding: 10px;
+        }
+
+        td {
+          padding: 5px;
+        }
+
+        .name {
+          font-size: 2em;
+        }
+
+        .typewriter {
+          font-size: 1.2em;
+        }
+
+        .logo {
+          width: 150px;
+        }
+
+        .profile-section {
+          padding: 10px 0;
+        }
+
+        .profile-left {
+          width: 100%;
+        }
+
+        .profile-right {
+          width: 100%;
+          margin-top: 15px;
+        }
+
+        .profile-right img {
+          width: 150px;
+        }
+
+        .toggle-container {
+          top: 5px;
+          right: 5px;
+        }
+
+        .toggle-switch {
+          width: 50px;
+          height: 25px;
+        }
+
+        .toggle-switch::before {
+          width: 21px;
+          height: 21px;
+        }
+
+        body {
+          padding: 10px;
+        }
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        table {
+          width: 100%;
+          margin: 5px auto;
+          padding: 8px;
+        }
+
+        .name {
+          font-size: 1.8em;
+        }
+
+        .typewriter {
+          font-size: 1em;
+        }
+
+        .logo {
+          width: 80px;
+        }
+
+        td {
+          word-wrap: break-word;
+          max-width: 100%;
+        }
+
+        ul {
+          padding-left: 20px;
+        }
+
+        li {
+          margin-bottom: 8px;
+        }
+      }
+
+      @media screen and (max-width: 380px) {
+        table {
+          overflow-x: auto;
+          display: block;
+        }
+      }
     </style>
   </head>
   <body>
@@ -264,27 +370,19 @@
           label.textContent = 'Light';
         }
         
-        document.querySelectorAll('table').forEach(table => {
-          isDark ? table.classList.add('dark') : table.classList.remove('dark');
+        document.querySelectorAll('table, h2').forEach(element => {
+          isDark ? element.classList.add('dark') : element.classList.remove('dark');
         });
         
-        document.querySelectorAll('h2').forEach(h2 => {
-          isDark ? h2.classList.add('dark') : h2.classList.remove('dark');
-        });
-        
-        // Save preference to localStorage
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
       }
 
       function initializeTheme() {
-        // Check localStorage first
         const savedTheme = localStorage.getItem('theme');
         
         if (savedTheme) {
-          // Use saved preference if it exists
           setTheme(savedTheme === 'dark');
         } else {
-          // Otherwise, check system preference
           const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           setTheme(prefersDark);
         }
@@ -295,12 +393,9 @@
         setTheme(isDark);
       }
 
-      // Initialize theme when page loads
       initializeTheme();
 
-      // Listen for system theme changes
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-        // Only update if there's no saved preference
         if (!localStorage.getItem('theme')) {
           setTheme(event.matches);
         }
